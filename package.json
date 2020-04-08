@@ -1,0 +1,26 @@
+{
+  "name": "d3-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a8397550/d3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a8397550/d3/issues"
+  },
+  "homepage": "https://github.com/a8397550/d3#readme",
+  "dependencies": {
+    "d3": "^5.15.1"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "safer-buffer": "^2.1.2"
+  }
+}

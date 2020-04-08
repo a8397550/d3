@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>d3 5.15.1</title>
+    <script src="../dist/d3.js" type="text/javascript"></script>
+    <style>
+      .text {
+        text-indent: 2em;
+      }
+      .pre {
+        white-space: pre-wrap;
+        background-color: #eee;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="../index.html">首页</a>
+    <h1>d3 selection</h1>
+    <h2>d3.selection() 返回一个selection对象</h2>
+    <p class="text">选取文档元素的根节点. 返回html元素(document.documentElement)</p>
+    <p class="text">d3.selection().style('background-color', 'rgba(220, 222, 193, 1)')</p>
+    <h2>d3.select(selection) 返回一个selection对象</h2>
+    <p class="text">从文档中选取一个元素 (相当于querySelector）</p>
+    <p class="text" id="test01">d3.select('#test01').style('color', 'rgba(8, 89, 236, 1)')</p>
+    <h2>d3.selectAll(selection) 返回一个selection对象</h2>
+    <p class="text test01">从文档中选择多个元素. （相当于querySelectorAll）</p>
+    <p class="text test01" id="test01">d3.selectAll('.test01').style('color', 'blue')</p>
+    <h3>
+      selection.select(selection | fn(d, i)) - 从每个被选中的元素中选择一个后代元素.<br />
+      selection.selectAll(selection | fn(d, i)) -从每个被选中的元素中选择多个后代元素.<br />
+    </h3>
+    <p class="pre">
+      &lt;div id="test-c" className="test-c"&gt;
+        &lt;div className="test-c"&gt;
+          &lt;div className="test-c"&gt;
+            content
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      var testList = d3.selectAll('#test-c'); 
+      // testList: {_groups: [NodeList(1)], _parents:[html]}
+      var item = testList.select('.test-c');
+      // item: {_groups: [NodeList(1)], _parents:[html]}
+      var items = testList.selectAll('.test-c');
+      // testList: {_groups: [NodeList(2)], _parents:[div#test-c.test-c]}
+    </p>
+    <h3>
+      selection.filter(selection | fn(d, i)) - 基于数据对元素进行过滤.<br />
+      selection.merge(selection) - 返回一个将当前选择集和指定的 other 选择集合并之后的新的选择集。返回的选择集与当前选择集有相同数量的分组以及相同的父元素。当前选择集中的任何空缺 (null) 都会被指定的 other 中的对应的元素填充(如果存在的话)，如果 other 选择集有附加的组或者父元素，则将其忽略。
+    </h3>
+    <p class="pre">
+      var even = d3.selectAll("tr").filter(":nth-child(even)");
+      var even = d3.selectAll("tr").filter(function(d, i) { return i & 1; });
+      var even = d3.selectAll("tr").select(function(d, i) { return i & 1 ? this : null; });
+    </p>
+    <div class="test-a">aaa</div>
+    <div class="test-a">aaa</div>
+
+    <p class="pre">
+      // selection.merge(selection) 例子
+      var circle = svg.selectAll("circle").data(data) // UPDATE
+      .style("fill", "blue");
+
+      circle.exit().remove(); // EXIT
+
+      circle = circle.enter().append("circle") // ENTER
+        .style("fill", "green")
+        .merge(circle) // ENTER + UPDATE
+        .style("stroke", "black");
+    </p>
+
+    <h3>
+      d3.window(node); // 返回window对象
+      d3.style(node, name); // 返回style属性
+    </h3>
+    <p class="pre">
+      d3.window(document).alert('666')
+      d3.style(document.getElementById('test01'), 'color');
+    </p>
+
+    <p>
+
+    </p>
+
+    <script>
+      d3.selection().style('background-color', 'rgba(220, 222, 193, 1)');
+      d3.select('#test01').style('color', 'rgba(8, 89, 236, 1)')
+      d3.selectAll('.test01').style('color', 'blue');
+      console.log(d3.window(document));
+      d3.window(document).alert('666')
+      var window = d3.window(document.getElementById('test01'));
+      var color = d3.style(document.getElementById('test01'), 'color');
+      window.alert(color);
+    </script>
+  </body>
+</html>
