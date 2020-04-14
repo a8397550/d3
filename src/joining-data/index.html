@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 5.15.1</title>
+  <script src="../lib/d3.js" type="text/javascript"></script>
+  <style>
+    .text {
+      text-indent: 2em;
+    }
+
+    .pre {
+      white-space: pre-wrap;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../index.html">首页</a>
+  <script>
+    var matrix = [
+      [11975, 5871, 8916, 2868],
+      [1951, 10048, 2060, 6171],
+      [8010, 16145, 8090, 8045],
+      [1013, 990, 940, 6907]
+    ];
+
+    var body = d3.select("body");
+    /* body = {
+      _groups: Array(1)
+        0: [body]
+        length: 1
+      _parents: [html]
+    } */
+    var table = body.append("table");
+    /* table = {
+      _groups: Array(1)
+        0: [table]
+        length: 1
+      _parents: [html]
+    } */
+    var tr = table.selectAll("tr");
+    /* tr = {
+      _groups: [NodeList(0)]
+      _parents: [table]
+    } */
+    var tr1 = tr.data(matrix);
+    /* tr1 = {
+      _groups: Array(1)
+        0: (4) [empty × 4]
+        length: 1
+      _parents: [table]
+      _enter: Array(1)
+        0: (4) [EnterNode, EnterNode, EnterNode, EnterNode]
+        length: 1
+      _exit: Array(1)
+        0: []
+        length: 1
+    } */
+    var tr2 = tr1.enter();
+    /* tr2 = {
+      _groups: Array(1)
+        0: Array(4)
+          0: EnterNode {ownerDocument: document, namespaceURI: "http://www.w3.org/1999/xhtml", _next: null, _parent: table, __data__: Array(4)}
+          1: EnterNode {ownerDocument: document, namespaceURI: "http://www.w3.org/1999/xhtml", _next: null, _parent: table, __data__: Array(4)}
+          2: EnterNode {ownerDocument: document, namespaceURI: "http://www.w3.org/1999/xhtml", _next: null, _parent: table, __data__: Array(4)}
+          3: EnterNode {ownerDocument: document, namespaceURI: "http://www.w3.org/1999/xhtml", _next: null, _parent: table, __data__: Array(4)}
+          length: 4
+        length: 1
+      _parents: [table]
+    } */
+    var tr3 = tr2.append("tr");
+    /* tr3 = {
+      _groups: Array(1)
+        0: Array(4)
+          0: tr: { 类型HTMLElement
+             __data__: [11975, 5871, 8916, 2868],
+             nodeType: 1
+          }
+          1: tr
+          2: tr
+          3: tr
+        length: 4
+      length: 1
+      _parents: [table]
+    } */
+
+    var td = tr3.selectAll("td");
+    var td1 = td.data(function (d) { return d; });
+    var td2 = td1.enter().append("td");
+    var td3 = td2.text(function (d) { return d; });
+  </script>
+</body>
+
+</html>

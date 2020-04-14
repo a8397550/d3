@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>d3 5.15.1</title>
-    <script src="../dist/d3.js" type="text/javascript"></script>
+    <script src="../lib/d3.js" type="text/javascript"></script>
     <style>
       .text {
         text-indent: 2em;
@@ -80,8 +80,11 @@
       d3.style(document.getElementById('test01'), 'color');
     </p>
 
-    <p>
-
+    <p class="pre">
+      selection.append(type); 追加元素
+      selection.insert(type[, before]); 插入元素
+      selection.remove(); 删除元素
+      selection.clone([deep])  克隆元素
     </p>
 
     <script>
@@ -93,6 +96,53 @@
       var window = d3.window(document.getElementById('test01'));
       var color = d3.style(document.getElementById('test01'), 'color');
       window.alert(color);
+
+      d3.selectAll('.test-a').append(function(d, i){
+        // console.log('append', d, i);
+
+        var div = document.createElement("div");
+
+        div.innerHTML = 'append';
+
+        return div;
+      })
+
+      // 插到最后面
+      d3.selectAll('.test-a').insert(function(d, i){
+              console.log(d, i); // undefined, 0
+              var div = document.createElement("div");
+              div.innerHTML = 'insert1';
+              return div;
+      });
+      // 等价
+      d3.selectAll(".test-a").select(function() {
+        var div = document.createElement("div");
+        div.innerHTML = 'insert2';
+        return this.insertBefore(div, null);
+      });
+      // 插到最后面
+      d3.selectAll(".test-a").insert("div").html('insert3');
+      // 插到第一个元素后面
+      d3.selectAll(".test-a").insert("div", ':first-child').html('insert4');
+      
+      
+      d3.selectAll('.test-a').insert(function(d, i){
+              console.log(d, i); // undefined, 0
+              var div = document.createElement("div");
+              div.innerHTML = 'insert5';
+              return div;
+      });
+
+      d3.selectAll('.test-a').remove();
+
+      var div1 = d3.create('div')
+      div1.text('xxx');
+
+      var div2 = d3.creator('div')
+
+      d3.selectAll('#test01').append(div2).text('999')
+
+
     </script>
   </body>
 </html>
