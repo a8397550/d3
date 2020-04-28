@@ -88,9 +88,100 @@
     } */
 
     var td = tr3.selectAll("td");
+    /*
+      td = {
+        _groups: (4) [NodeList(0), NodeList(0), NodeList(0), NodeList(0)]
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
     var td1 = td.data(function (d) { return d; });
+    /*
+      td1 = {
+        _groups: (4) [Array(4), Array(4), Array(4), Array(4)]
+          0: (4) [empty × 4]
+          1: (4) [empty × 4]
+          2: (4) [empty × 4]
+          3: (4) [empty × 4]
+        _parents: (4) [tr, tr, tr, tr]
+        _enter: (4) [Array(4), Array(4), Array(4), Array(4)]
+        _exit: (4) [Array(0), Array(0), Array(0), Array(0)]
+      }
+    */
     var td2 = td1.enter().append("td");
+    /*
+      td2 = {
+        _groups: Array(4)
+          0: (4) [td, td, td, td]
+          1: (4) [td, td, td, td]
+          2: (4) [td, td, td, td]
+          3: (4) [td, td, td, td]
+          length: 4
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
     var td3 = td2.text(function (d) { return d; });
+    /*
+      td3 = {
+        _groups: Array(4)
+          0: (4) [td, td, td, td]
+          1: (4) [td, td, td, td]
+          2: (4) [td, td, td, td]
+          3: (4) [td, td, td, td]
+          length: 4
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
+    
+    var td6 = td3.remove();
+    /*
+      td6 = {
+        _groups: Array(4)
+          0: (4) [td, td, td, td]
+          1: (4) [td, td, td, td]
+          2: (4) [td, td, td, td]
+          3: (4) [td, td, td, td]
+          length: 4
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
+    var td7 = td6.exit();
+    /*
+      td7 = {
+        _groups: Array(4)
+          0: (4) [empty × 4]
+          1: (4) [empty × 4]
+          2: (4) [empty × 4]
+          3: (4) [empty × 4]
+          length: 4
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
+
+    // var td4 = td3.exit();
+    /*
+      td4 = {
+        _groups: Array(4)
+          0: (4) [empty × 4]
+          1: (4) [empty × 4]
+          2: (4) [empty × 4]
+          3: (4) [empty × 4]
+          length: 4
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
+
+    // var td5 = td4.remove();
+    /*
+      td5 = {
+        _groups: Array(4)
+          0: (4) [empty × 4]
+          1: (4) [empty × 4]
+          2: (4) [empty × 4]
+          3: (4) [empty × 4]
+          length: 4
+        _parents: (4) [tr, tr, tr, tr]
+      }
+    */
   </script>
 </body>
 
