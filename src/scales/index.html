@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 5.15.1</title>
+  <style>
+    .text {
+      text-indent: 2em;
+    }
+
+    .pre {
+      white-space: pre-wrap;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <a href="../index.html">首页</a>
+  <br />
+  <br />
+  <div class="pre">
+    const fn = d3.scaleLinear().domain([0, 10]).range([0, 100]);
+
+
+    fn(5); // 50
+    fn(10); // 100
+    fn(11).toFixed(0); // 110
+  </div>
+
+
+  <script>
+    const fn = d3.scaleLinear().domain([0, 10]).range([0, 100]);
+
+
+    alert(fn(5)); // 
+    alert(fn(10)); // 
+    alert(fn(11).toFixed(0)); // 
+  </script>
+</body>
+
+</html>
