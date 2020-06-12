@@ -22,22 +22,20 @@
   <br />
   <br />
   <div class="pre">
-    const fn = d3.scaleLinear().domain([0, 10]).range([0, 100]);
+    const start = new Date(2020, 0, 1);
+    const end = new Date(2020, 11, 31);
+    const fn = d3.scaleTime().domain([start, end]).rangeRound([0, 1200]);
 
-
-    fn(5); // 50
-    fn(10); // 100
-    fn(11).toFixed(0); // 110
+    fn(new Date());
   </div>
 
 
   <script>
-    const fn = d3.scaleLinear().domain([0, 10]).range([0, 100]);
+    const start = new Date(2020, 0, 1);
+    const end = new Date(2020, 11, 31);
+    const fn = d3.scaleTime().domain([start, end]).rangeRound([0, 1200]);
 
-
-    alert(fn(5)); // 
-    alert(fn(10)); // 
-    alert(fn(11).toFixed(0)); // 
+    alert(fn(new Date()));
   </script>
 </body>
 

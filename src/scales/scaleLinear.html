@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 5.15.1</title>
+  <style>
+    .text {
+      text-indent: 2em;
+    }
+
+    .pre {
+      white-space: pre-wrap;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <a href="../index.html">首页</a>
+  <br />
+  <br />
+  <div class="pre">
+    var fn = d3.scaleLinear().domain([0, 10]).range([0, 100]);
+
+
+    alert(fn(5)); // 
+    alert(fn(10)); // 
+    alert(fn(11).toFixed(0)); // 
+
+    var color = d3.scaleLinear()
+    .domain([0, 32])
+    .range(["red", "blue"]);
+
+    color(20); // "#9a3439"
+    color(50); // "#7b5167"
+
+    var body = d3.select('body');
+
+    var data = [];
+
+    for (let i = 0; i < 32; i++) {
+      data.push(color(i));
+    }
+
+    body.selectAll('.color').data(data).enter().append("div").style("color", function (d) {
+      return d;
+    }).text(function (d) {
+      return d;
+    })
+
+    var x = d3.scaleLinear()
+    .domain([10, 130])
+    .range([0, 960]);
+
+    alert(x.invert(960)); // 130
+    alert(x.invert(0)); // 10
+
+    Domain 定义域 range 映射域
+
+    var color = d3.scaleLinear()
+    .domain([-1, 0, 1])
+    .range(["red", "white", "green"]);
+
+    var colorData = [
+      color(-0.5), // "rgb(255, 128, 128)"
+      color(+0.5), // "rgb(128, 192, 128)"
+    ]
+
+    body.selectAll('.color1').data(colorData).enter().append("div").style("color", function (d) {
+      return d;
+    }).text(function (d) {
+      return d;
+    })
+
+  </div>
+
+
+  <script>
+    var fn = d3.scaleLinear().domain([0, 10]).range([0, 100]);
+
+
+    alert(fn(5)); // 
+    alert(fn(10)); // 
+    alert(fn(11).toFixed(0)); // 
+
+    var color = d3.scaleLinear()
+    .domain([0, 32])
+    .range(["red", "blue"]);
+
+    color(20); // "#9a3439"
+    color(50); // "#7b5167"
+
+    var body = d3.select('body');
+
+    var data = [];
+
+    for (let i = 0; i < 32; i++) {
+      data.push(color(i));
+    }
+
+    var div = body.selectAll('.color').data(data).enter().append("div").style("color", function (d) {
+      return d;
+    }).text(function (d) {
+      return d;
+    })
+
+    var x = d3.scaleLinear()
+    .domain([10, 130])
+    .range([0, 960]);
+
+    alert(x.invert(960)); // 130
+    alert(x.invert(0)); // 10
+
+    var color = d3.scaleLinear()
+    .domain([-1, 0, 1])
+    .range(["red", "white", "green"]);
+
+    var colorData = [
+      color(-1),
+      color(-0.5), // "rgb(255, 128, 128)"
+      color(0),
+      color(+0.5), // "rgb(128, 192, 128)"
+      color(1)
+    ]
+
+    body.selectAll('.color1').data(colorData).enter().append("div").style("color", function (d) {
+      return d;
+    }).text(function (d) {
+      return d;
+    })
+  </script>
+</body>
+
+</html>
