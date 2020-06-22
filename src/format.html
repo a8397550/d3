@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 5.15.1</title>
+  <style>
+    .text {
+      text-indent: 2em;
+    }
+
+    .pre {
+      white-space: pre-wrap;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script src="./lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <a href="./index.html">首页</a>
+  <br />
+  <br />
+  <div class="pre">
+    console.log(d3.format(".0%")(0.123)); // "12%" 
+    console.log(d3.format("($.2f")(-3.5)); // ($3.50)
+    console.log(d3.format("(,.2f")(-3.5)); // (-3.50)
+    console.log(d3.format("+20")(42)); // "                 +42"
+    console.log(d3.format(".^20")(42)); // ".........42........."
+    console.log(d3.format(".2s")(42e6)); // "42M"
+    console.log(d3.format("#x")(48879)); // "0xbeef"
+    console.log(d3.format(",.2r")(4223)); // "4,200"
+  </div>
+
+
+  <script>
+    console.log(d3.format(".0%")(0.123)); // "12%" 
+    console.log(d3.format("($.2f")(-3.5)); // "($3.50)"
+    console.log(d3.format("(,.2f")(-3.5)); // (-3.50)
+    console.log(d3.format("+20")(42)); // "                 +42"
+    console.log(d3.format(".^20")(42)); // ".........42........."
+    console.log(d3.format(".2s")(42e6)); // "42M"
+    console.log(d3.format("#x")(48879)); // "0xbeef"
+    console.log(d3.format(",.2r")(4223)); // "4,200"
+    console.log(d3.format("$,")(1234.56)); // "$1,234.56"
+    console.log(d3.format(",")(1234.56)); // "1,234.56"
+  </script>
+</body>
+
+</html>

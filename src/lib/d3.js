@@ -1095,7 +1095,7 @@ function selection_merge(selection) {
     var n = group0.length;
     var merge = merges[j] = new Array(n)
     var node; 
-    for (i = 0; i < n; i += 1) {
+    for (var i = 0; i < n; i += 1) {
       if (node = group0[i] || group1[i]) {
         merge[i] = node;
       }

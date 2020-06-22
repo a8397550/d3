@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 5.15.1</title>
+  <style>
+    .text {
+      text-indent: 2em;
+    }
+
+    .pre {
+      white-space: pre-wrap;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <a href="../index.html">首页</a>
+  <br />
+  <br />
+  <div class="pre">
+    var interpolate = d3.interpolateNumber(0, 100);
+    console.log(interpolate(0.1)); // 10
+    console.log(interpolate(0.99)); // 99
+
+    var autoStrInter = d3.scaleLinear()
+    .domain([0, 10])
+    .range([
+        "italic bold 12px/30px Georgia, serif", 
+        "italic bold 120px/300px Georgia, serif"
+        ]);
+    console.log(autoStrInter(0));
+    console.log(autoStrInter(5));
+    console.log(autoStrInter(10));
+
+    var color = d3.scaleLinear()
+    .domain([0, 5, 10])
+    .range([
+        "red", 
+      	"blue",
+        "#fff"
+    ]);
+    console.log(color(0));
+    console.log(color(4));
+
+    const objFn = d3.scalePow().exponent(2).domain([0, 10]).range([
+        {color: 'red', height: '15px'},
+        {color: 'blue', height: '150px'},
+    ]);
+    console.log(objFn(0))
+    console.log(objFn(4));
+
+    const fn = d3.scaleLinear()
+    .domain([0, 10]).range(["$0", "$300"]).interpolate(function(a, b) {
+        console.log('a', a); // a $0
+        console.log('b', b); // b $300
+        var re = /^\$([0-9,.]+)$/;
+        var ma;
+        var mb;
+        var f = d3.format(",.02f");
+        if ((ma = re.exec(a)) && (mb = re.exec(b))) {
+            a = parseFloat(ma[1]);
+            b = parseFloat(mb[1]) - a;
+            return function (t) {
+                console.log(a, b, t); // 0, 300, 0.5
+                return  "$" + f(a + b * t);
+            }
+        }
+    });
+    console.log(fn(5)); // "$150.00" 
+
+    const fnInterpolate = d3.scaleLinear()
+    .domain([0, 27]).range(["a", "z"]).interpolate(function(a, b) {
+       var re = /^[a-z]$/;
+       var ma;
+       var mb;
+       if ((ma = re.exec(a)) && (mb = re.exec(b))) {
+            a = a.charCodeAt(0); // 返回ascii
+            var delta = a - b.charCodeAt(0);
+            return function (t) {
+                console.log(a, delta, t); // 97 -25 0.18518518518518517
+                return  String.fromCharCode(Math.ceil(a - delta * t)); // 传入102
+            }
+        }
+    });
+    console.log(fnInterpolate(5)); // "f" 
+  </div>
+
+
+  <script>
+    var interpolate = d3.interpolateNumber(0, 100);
+    console.log(interpolate(0.1)); // 10
+    console.log(interpolate(0.99)); // 99
+
+    var autoStrInter = d3.scaleLinear()
+    .domain([0, 10])
+    .range([
+        "italic bold 12px/30px Georgia, serif", 
+        "italic bold 120px/300px Georgia, serif"
+        ]);
+    console.log(autoStrInter(0));
+    console.log(autoStrInter(5));
+    console.log(autoStrInter(10));
+
+    var color = d3.scaleLinear()
+    .domain([0, 5, 10])
+    .range([
+        "red", 
+      	"blue",
+        "#fff"
+    ]);
+    console.log(color(0));
+    console.log(color(4));
+
+    const objFn = d3.scalePow().exponent(2).domain([0, 10]).range([
+        {color: 'red', height: '15px'},
+        {color: 'blue', height: '150px'},
+    ]);
+    console.log(objFn(0))
+    console.log(objFn(4));
+
+    const fn = d3.scaleLinear()
+    .domain([0, 10]).range(["$0", "$300"]).interpolate(function(a, b) {
+        console.log('a', a); // a $0
+        console.log('b', b); // b $300
+        var re = /^\$([0-9,.]+)$/;
+        var ma;
+        var mb;
+        var f = d3.format(",.02f");
+        if ((ma = re.exec(a)) && (mb = re.exec(b))) {
+            a = parseFloat(ma[1]);
+            b = parseFloat(mb[1]) - a;
+            return function (t) {
+                console.log(a, b, t); // 0, 300, 0.5
+                return  "$" + f(a + b * t);
+            }
+        }
+    });
+    console.log(fn(5)); // "$150.00" 
+
+    const fnInterpolate = d3.scaleLinear()
+    .domain([0, 27]).range(["a", "z"]).interpolate(function(a, b) {
+       var re = /^[a-z]$/;
+       var ma;
+       var mb;
+       if ((ma = re.exec(a)) && (mb = re.exec(b))) {
+            a = a.charCodeAt(0); // 返回ascii
+            var delta = a - b.charCodeAt(0);
+            return function (t) {
+                console.log(a, delta, t); // 97 -25 0.18518518518518517
+                return  String.fromCharCode(Math.ceil(a - delta * t)); // 传入102
+            }
+        }
+    });
+    console.log(fnInterpolate(5)); // "f" 
+  </script>
+</body>
+
+</html>

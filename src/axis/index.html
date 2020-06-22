@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+
+
+    <script>
+        var h = 200;
+        var w = 50;
+        var offsetX = 50;
+        var offsetY = 30;
+        scale = d3.scaleLinear().domain([10, 0]).range([0, h]);
+        axis = d3.axisLeft().scale(scale)
+        d3.select("body").append("svg")
+            .attr("width", w)
+            .attr("height", h + offsetX)
+            .append("g")
+            .attr("transform", `translate(${offsetX / 2 + 10}, ${offsetY})`)
+            .call(axis);
+
+        w = 200;
+        h = 50
+        var scale = d3.scaleLinear().domain([0, 10]).range([0, w]);
+        var axis = d3.axisTop(scale);
+        d3.select("body").append("svg")
+            .attr("width", w + offsetX)
+            .attr("height", h)
+            .append("g")
+            .attr("transform", `translate(${offsetX / 2}, ${offsetY})`)
+            .call(axis);
+
+        
+        var scale = d3.scaleLinear().domain([-5, 5]).range([0, w]);
+        var axis = d3.axisTop(scale);
+        // axis.ticks(5) // 设置显示几个刻度尺，从0开始，显示6个
+        // axis.ticks(5, 's'); // 如果使用国际单位...
+        axis.tickArguments([10]);
+        axis.tickValues([-2, 2, 3, 5, 8, 13, 21]); // 13与21没有显示，超出边界了
+        axis.tickFormat(function (v) {
+            return 'ccc' + v + '$'
+        });
+        // axis.tickPadding(-20);
+        axis.tickSizeInner(20)
+        d3.select("body").append("svg")
+            .attr("width", w + offsetX)
+            .attr("height", h)
+            .append("g")
+            .attr("transform", `translate(${offsetX / 2}, ${offsetY})`)
+            .call(axis);
+    </script>
+</body>
+
+</html>

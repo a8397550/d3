@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 5.15.1</title>
+  <style>
+    .text {
+      text-indent: 2em;
+    }
+
+    .pre {
+      white-space: pre-wrap;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <a href="../index.html">首页</a>
+  <br />
+  <br />
+  <div class="pre">
+    var fn = d3.scaleOrdinal()
+    .domain([0,1,2,3,4,5,6])
+    .range(['a', 'b', 'c', 'd', 'e', 'f', 'g']);
+
+    console.log(fn(0)); // a
+    console.log(fn(2)); // c    
+    console.log(fn(7)); // a
+    console.log(fn(8)); // b
+    console.log(fn('a')) // 
+    // 设定如果传入非数值型值，返回什么值
+    var __fn = fn.unknown(undefined);    
+
+    console.log(__fn('z')); // undefined // 如果是非数值的值, 超出边界
+    console.log(__fn(8)); // b // 超出边界
+  </div>
+
+
+  <script>
+    var fn = d3.scaleOrdinal()
+    .domain([0,1,2,3,4,5,6])
+    .range(['a', 'b', 'c', 'd', 'e', 'f', 'g']);
+
+    console.log(fn(0)); // a
+    console.log(fn(2)); // c    
+    console.log(fn(7)); // a
+    console.log(fn(8)); // b
+    console.log(fn('ac')) // c
+    // 设定如果传入非数值型值，返回什么值
+    var __fn = fn.unknown(undefined);    
+
+    console.log(__fn('z')); // undefined // 如果是非数值的值, 超出边界
+    console.log(__fn(8)); // b // 超出边界
+    console.log(d3.schemeCategory10);
+  </script>
+</body>
+
+</html>
