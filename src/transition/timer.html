@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #root {
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        var body = d3.select("#root");
+
+        var countdown = body.append("div").append("input");
+
+        countdown.attr("type", "button").attr("value", "0");
+
+        function countup(target) {
+            d3.timer(function () {
+                var value = countdown.attr("value");
+                if (value == target) return true;
+                  countdown.attr("value", ++value);
+            })
+        }
+
+        function reset() {
+            countdown.attr("value", "0");
+        }
+
+        setTimeout(function(){
+            countup(100);
+        }, 3000);
+
+        setTimeout(function(){
+            reset();
+        }, 3500);
+
+    </script>
+</body>
+
+</html>
