@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #root {
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        const valueTween = function () {
+            const fnInterpolate = d3.scaleLinear()
+            .domain([0, 1]).range(["a", "z"]).interpolate(function(a, b) {
+            var re = /^[a-z]$/;
+            var ma;
+            var mb;
+            if ((ma = re.exec(a)) && (mb = re.exec(b))) {
+                    a = a.charCodeAt(0); // 返回ascii
+                    var delta = a - b.charCodeAt(0);
+                    return function (t) {
+                        // console.log(a, delta, t); // 97 -25 0.18518518518518517
+                        // console.log(String.fromCharCode(Math.ceil(a - delta * t)))
+                        return String.fromCharCode(Math.ceil(a - delta * t)); // 传入102
+                    }
+                }
+            });
+
+            return function(t) {
+                // t = 0 tween 1
+                return fnInterpolate(t);
+            }
+        }
+
+        d3.select("#root").append("div").append("input")
+        .attr("type", "button")
+        .attr("value", "a")
+        .transition().ease(d3.easeLinear).delay(1000).duration(27000).attrTween("value", valueTween)
+
+
+        
+
+    </script>
+</body>
+
+</html>

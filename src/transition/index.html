@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #root {
+            height: 500px;
+            width: 500px;
+            margin: 50px;
+            background-color:aquamarine;
+            box-sizing: content-box;
+            border: 1px solid #eee;
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        var body = d3.select("#root");
+        var duration = 5000;
+        body.append("div").classed("box", true)
+        .style("height", '500px') // 写100%，不生效
+        .style("background-color", "#e9967a")
+        .transition()
+        .duration(duration)
+        .style("background-color", "#add8e6")
+        .style("width", "100px")
+        .style("height", "100px")
+
+    </script>
+</body>
+
+</html>

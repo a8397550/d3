@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #root .v-bar {
+            background-color: cornflowerblue;
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        var id = 0;
+        var data = [];
+        var duration = 500;
+        var chartHeight = 100;
+        var chartWidth = 680;
+
+        function push(data) {
+            data.push({
+                id: ++id,
+                value: Math.round(Math.random() * chartHeight)
+            })
+        }
+        function barLeft(i) {
+            return i * (30 + 2)
+        }
+        function barHeight(d) {
+            return d.value;
+        }
+        for (let i = 0; i < 20; i += 1) {
+            push(data);
+        }
+        function render(data) {
+            console.log(data);
+            var selection = d3.select("#root")
+                .style("background-color", "cornflowerblue")
+                .style("position", "relation")
+                .selectAll("div.v-bar").data(data,
+                    function (d) {
+                        return d.id;
+                    }
+                );
+
+            selection.enter() // 进入，因为进入时，没有text()
+                .append("div")
+                .attr("class", "v-bar")
+                .style("position", "absolute")
+                .style("top", `${chartHeight}px`)
+                .style("left", function (d, i) {
+                    return barLeft(i + 1) + 'px';
+                })
+                .style("height", '0px')
+                .append("span")
+
+                selection // update 要触发更新才会渲染
+                .transition()
+                .duration(duration)
+                .style("top", function (d) {
+                    return chartHeight - barHeight(d) + 'px';
+                })
+                .style("left", function (d, i) {
+                    return barLeft(i) + 'px';
+                })
+                .style("height", function (d) {
+                    return barHeight(d) + 'px';
+                })
+                .select("span")
+                .text(function (d) {
+                    return d.value;
+                })
+
+            selection
+                .exit()
+                .transition()
+                .duration(duration)
+                .style("left", function (d, i) {
+                    return barLeft(-1) + 'px';
+                })
+                .remove();
+        }
+
+        setInterval(() => {
+            data.shift();
+            push(data);
+            render(data);
+        }, 2000);
+
+        render(data);
+
+        d3.select("#root").append("div").classed("baseline", true)
+        .style("position", "absolute")
+        .style("background-color", "#000")
+        .style("height", '1px')
+        .style("top", chartHeight + 'px')
+        .style("left", '0px')
+        .style("width", chartWidth + 'px');
+    </script>
+</body>
+
+</html>

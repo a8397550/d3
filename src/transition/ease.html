@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        var fn = function(t) {
+                return t * t;
+            }
+        
+        var easeFn = {
+            "d3.easeLinear": d3.easeLinear, // 线性
+            "d3.easeCubic": d3.easeCubic, // 
+            "d3.easePolyIn": d3.easePolyIn,
+            "d3.easePolyOut": d3.easePolyOut, 
+            "d3.easePoly": d3.easePoly, 
+            "d3.easePolyInOut": d3.easePolyInOut, 
+            "d3.easeQuadIn": d3.easeQuadIn, 
+            "d3.easeQuadOut": d3.easeQuadOut, 
+            "d3.easeQuad": d3.easeQuad,
+            "d3.easeQuadInOut": d3.easeQuadInOut,
+            "d3.easeCubicIn": d3.easeCubicIn,
+            "d3.easeCubicOut": d3.easeCubicOut,
+            // "d3.easeCubic": d3.easeCubic,
+            "d3.easeCubicInOut": d3.easeCubicInOut,
+            "d3.easeSinIn": d3.easeSinIn,
+            "d3.easeSinOut": d3.easeSinOut,
+            "d3.easeSin": d3.easeSin,
+            "d3.easeSinInOut": d3.easeSinInOut,
+            "d3.easeExpIn": d3.easeExpIn,
+            "d3.easeExpOut": d3.easeExpOut,
+            "d3.easeExp": d3.easeExp,
+            "d3.easeExpInOut": d3.easeExpInOut,
+            "d3.easeCircleIn": d3.easeCircleIn,
+            "d3.easeCircleOut": d3.easeCircleOut,
+            "d3.easeCircle": d3.easeCircle,
+            "d3.easeCircleInOut": d3.easeCircleInOut,
+            "d3.easeElasticIn": d3.easeElasticIn,
+            "d3.easeElastic": d3.easeElastic,
+            "d3.easeElasticOut": d3.easeElasticOut,
+            "d3.easeElasticInOut": d3.easeElasticInOut,
+            "d3.easeBackIn": d3.easeBackIn,
+            "d3.easeBackOut": d3.easeBackOut,
+            "d3.easeBack": d3.easeBack,
+            "d3.easeBackInOut": d3.easeBackInOut,
+            "d3.easeBounceIn": d3.easeBounceIn,
+            "d3.easeBounce": d3.easeBounce,
+            "d3.easeBounceOut": d3.easeBounceOut,
+            "d3.easeBounceInOut": d3.easeBounceInOut,
+            fn: fn
+        };
+
+        var data = Object.keys(easeFn);
+
+        alert(data.length);
+
+        var colors = [...d3.schemeCategory10, ...d3.schemeAccent, ...d3.schemeDark2, ...d3.schemePaired];
+
+        var root = d3.select("#root").selectAll("div").data(data).enter().append("div")
+        .attr("class", "fixed-cell")
+        .style("position", "absolute")
+        .style("top", function(d, i) {
+            return (i + 1) * 40 + 'px';
+        })
+        .style("background-color", function (d, i) {
+            return colors[i];
+        })
+        .style("color", "white")
+        .style("left", "500px")
+        .text(function(d) {
+            if (typeof d === "function") {
+                return "custom"
+            }
+            return d;
+        });
+
+        d3.select("#root").selectAll("div").each(function(d) {
+            console.log(d);
+            var trans = d3.select(this)
+            .transition()
+            .duration(25000)
+            .style("left", "10px")
+            .ease(easeFn[d])
+        })
+    </script>
+</body>
+
+</html>

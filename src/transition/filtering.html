@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #root {
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        var body = d3.select("#root");
+
+        var data = ["Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog"];
+        var duration = 1500;
+
+        body.selectAll("div")
+        .data(data)
+        .enter()
+        .append("div")
+        .attr("class", "fixed-cell")
+        .style("top", function(d, i) {
+            return (i + 1) * 40 + 'px';
+        })
+        .style("position", "absolute")
+        .style("background-color", "steelblue")
+        .style("color", "white")
+        .style("left", "500px")
+        .text(function(d) {
+            return d;
+        })
+        .transition().duration(duration)
+        .style("left", "10px")
+        .filter(function(d) { return d === "Cat"})
+        .transition().duration(duration)
+        .style("left", "500px");
+    </script>
+</body>
+
+</html>
