@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #table, #root, #body {
+            height: 500px;
+            width: 500px;
+            margin: 50px;
+            background-color: aquamarine;
+            box-sizing: content-box;
+            border: 1px solid #eee;
+            /* float: left; */
+        }
+        button {
+            margin-left: 20px;
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+    <br />
+    <button onclick="render('#root', 0)">render('#root', 0)</button>
+    <button onclick="render('#root', 100)">render('#root', 100)</button>
+    <button onclick="render('#root', 0, Math.PI)">render('#root', 0, Math.PI)</button>
+    <button onclick="render('#root', 100, Math.PI)">render('#root', 100, Math.PI)</button>
+    <br />
+    <script>
+        var width = 400;
+        var height = 400;
+        var fullAngle = 2 * Math.PI; // 整个圆圈 如果是一个Math.PI就是半圆
+        var colors = d3.schemeCategory10;
+
+        function render(root ,innerRadius, endAngle) {
+            d3.select(root).select("svg").remove();
+
+            var svg = d3.select(root)
+            .append("svg")
+            .attr("class", "pie")
+            .attr("height", height)
+            .attr("width", width);
+
+            if (!endAngle) {
+                endAngle = fullAngle;
+            }
+
+            var data = [
+                { startAngle: 0, endAngle: 0.1 * endAngle},
+                { startAngle: 0.1 * endAngle, endAngle: 0.2 * endAngle},
+                { startAngle: 0.2 * endAngle, endAngle: 0.3 * endAngle},
+                { startAngle: 0.3 * endAngle, endAngle: 0.4 * endAngle},
+                { startAngle: 0.4 * endAngle, endAngle: 0.5 * endAngle},
+                { startAngle: 0.5 * endAngle, endAngle: 0.6 * endAngle},
+                { startAngle: 0.6 * endAngle, endAngle: 0.7 * endAngle},
+                { startAngle: 0.7 * endAngle, endAngle: 0.8 * endAngle},
+                { startAngle: 0.8 * endAngle, endAngle: 0.9 * endAngle},
+                { startAngle: 0.9 * endAngle, endAngle: 1 * endAngle},
+            ]
+
+            var arc = d3.arc()
+            .outerRadius(200) // 设置外半径
+            .innerRadius(innerRadius) // 设置内半径
+
+            svg.append("g")
+            .attr("style", "transform:translate(200px, 200px)")
+            .selectAll("path.arc")
+            .data(data)
+            .enter()
+            .append("path")
+            .attr("class", "arc")
+            .attr("fill", function(d, i){
+                return colors[i];
+            })
+            .attr("d", function(d, i){
+                console.log(d);
+                return arc(d, i);
+            })
+        }
+
+    </script>
+    <br />
+    <br />
+    <div id="body"></div>
+    <script>
+        var width = 400;
+        var height = 400;
+        var fullAngle = 2 * Math.PI; // 整个圆圈 如果是一个Math.PI就是半圆
+        var colors = d3.schemeCategory10;
+
+        function renderTransition(root ,innerRadius, endAngle) {
+            d3.select(root).select("svg").remove();
+
+            var svg = d3.select(root)
+            .append("svg")
+            .attr("class", "pie")
+            .attr("height", height)
+            .attr("width", width);
+
+            if (!endAngle) {
+                endAngle = fullAngle;
+            }
+
+            var data = [
+                { startAngle: 0, endAngle: 0.1 * endAngle},
+                { startAngle: 0.1 * endAngle, endAngle: 0.2 * endAngle},
+                { startAngle: 0.2 * endAngle, endAngle: 0.3 * endAngle},
+                { startAngle: 0.3 * endAngle, endAngle: 0.4 * endAngle},
+                { startAngle: 0.4 * endAngle, endAngle: 0.5 * endAngle},
+                { startAngle: 0.5 * endAngle, endAngle: 0.6 * endAngle},
+                { startAngle: 0.6 * endAngle, endAngle: 0.7 * endAngle},
+                { startAngle: 0.7 * endAngle, endAngle: 0.8 * endAngle},
+                { startAngle: 0.8 * endAngle, endAngle: 0.9 * endAngle},
+                { startAngle: 0.9 * endAngle, endAngle: 1 * endAngle},
+            ]
+
+            var arc = d3.arc()
+            .outerRadius(200) // 设置外半径
+            .innerRadius(innerRadius) // 设置内半径
+
+            svg.append("g")
+            .attr("style", "transform:translate(200px, 200px)")
+            .selectAll("path.arc")
+            .data(data)
+            .enter()
+            .append("path")
+            .attr("class", "arc")
+            .attr("fill", function(d, i){
+                return colors[i];
+            })
+            .transition()
+            .duration(1000)
+            .attrTween("d", function(d){
+                var start = {startAngle: 0, endAngle: 0}
+                var interpolate = d3.interpolate(start, d);
+                return function(t) {
+                    return arc(interpolate(t));
+                }
+            })
+        }
+
+    </script>
+    <br />
+    <button onclick="renderTransition('#body', 0)">renderTransition('#body', 0)</button>
+    <button onclick="renderTransition('#body', 100)">renderTransition('#body', 100)</button>
+    <button onclick="renderTransition('#body', 0, Math.PI)">renderTransition('#body', 0, Math.PI)</button>
+    <button onclick="renderTransition('#body', 100, Math.PI)">renderTransition('#body', 100, Math.PI)</button>
+    <br />
+    <div style="height: 200px"></div>
+</body>
+
+</html>

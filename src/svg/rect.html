@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>d3 5.15.1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .text {
+            text-indent: 2em;
+        }
+
+        .pre {
+            white-space: pre-wrap;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        #table, #root, #body {
+            height: 500px;
+            width: 500px;
+            margin: 50px;
+            background-color: aquamarine;
+            box-sizing: content-box;
+            border: 1px solid #eee;
+            float: left;
+        }
+    </style>
+    <script src="../lib/d3.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <a href="../index.html">首页</a>
+    <br />
+    <div id="root"></div>
+
+    <script>
+        render("#root", d3.curveStep);
+        function render(root, __curve) {
+            var height = 500;
+            var width = 500;
+            var margin = 50;
+            var __body = d3.select(root);
+            var svg = __body.append("svg").attr("class", "axis").attr("width", width).attr("height", height);
+
+            function renderXAsix() {
+                var axisLength = width - 2 * margin;
+
+                var scale = d3.scaleLinear().domain([-10, 110]).range([-10, 410]);
+
+                var xAsix = d3.axisBottom(scale);
+
+                xAsix.tickSizeOuter(0)
+                xAsix.tickValues([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+
+                svg.append("g").attr("class", "x-axis").attr("transform", function (v) {
+                    return `translate(${margin}, ${height - margin})`
+                }).call(xAsix);
+
+                d3.selectAll("g.x-axis g.tick").append("line").classed("grid-line", true)
+                    .attr("x1", 0)
+                    .attr("y1", 0)
+                    .attr("x2", 0)
+                    .attr("y2", -(height - 2 * margin))
+                    .attr("stroke", '#ccc')
+            }
+
+            function renderYAsix() {
+                var axisLength = height - 2 * margin;
+                var scale = d3.scaleLinear().domain([100, 0]).range([0, axisLength]);
+
+                var yAsix = d3.axisLeft(scale);
+
+                svg.append("g").attr("class", "y-axis").attr("transform", function (v) {
+                    return `translate(${margin}, ${margin})`
+                }).call(yAsix);
+
+                d3.selectAll("g.y-axis g.tick").filter(function (d, i) {
+                    if (d === 0) {
+                        return false;
+                    }
+                    return this;
+                }).append("line").classed("grid-line", true)
+                    .attr("x1", 0)
+                    .attr("y1", 0)
+                    .attr("x2", axisLength)
+                    .attr("y2", 0)
+                    .attr("stroke", '#ccc')
+            }
+
+            renderXAsix();
+            renderYAsix();
+
+
+            var x = d3.scaleLinear().domain([-10, 110]).range([-10, 410])
+            var y = d3.scaleLinear().domain([100, 0]).range([0, height - 2 * margin])
+            var __height = d3.scaleLinear().domain([0, 100]).range([0, height - 2 * margin])
+            var data = [
+                { x: 00, y: 50}, 
+                { x: 10, y: 90 },
+                { x: 20, y: 70 },
+                { x: 30, y: 50}, 
+                { x: 40, y: 50 }, 
+                { x: 50, y: 30},
+                { x: 60, y: 40}, 
+                { x: 70, y: 20}, 
+                { x: 90, y: 20}        
+            ]
+
+            var color = d3.scaleOrdinal().domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).range(d3.schemeCategory10)
+
+            function renderBars() {
+                var __width = width - 2 * margin;
+                var padding = 8;
+
+                svg.append("g").selectAll("rect").data(data).enter()
+                .append("rect").attr("class", "bar")
+                .attr("x", function(d) {
+                    var w = Math.floor((__width - 2 * margin) / data.length) - padding;
+
+                    return x(d.x) - w / 2
+                })
+                .attr("y", function(d) {
+                    return y(d.y)
+                })
+                .attr("fill", function (d, i) {
+                    var __color = d3.rgb(color(i));
+                    __color.opacity = 0.6;
+                    return __color;
+                })
+                .attr("stroke", function (d, i) {
+                    var __color = d3.rgb(color(i));
+                    __color.opacity = 0.8;
+                    return __color;
+                })
+                .attr("height", function(d){
+                    return `${__height(d.y)}px`;
+                })
+                .attr("width", function() {
+                    var w = Math.floor((__width - 2 * margin) / data.length) - padding;
+                    console.log(w);
+                    return w;
+                })
+                .style("transform", function (v) {
+                    return `translate(${margin}px, ${margin}px)`
+                })
+                
+            }
+
+            renderBars()
+        }
+
+    </script>
+</body>
+
+</html>
