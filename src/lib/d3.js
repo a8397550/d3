@@ -1276,10 +1276,14 @@ function styleFunction(name, value, priority) {
 
 function selection_style(name, value, priority) {
   return arguments.length > 1
-      ? this.each((value == null
+      ? 
+      this.each(
+        (value == null
             ? styleRemove : typeof value === "function"
             ? styleFunction
-            : styleConstant)(name, value, priority == null ? "" : priority))
+            : styleConstant
+        )(name, value, priority == null ? "" : priority)
+      )
       : styleValue(this.node(), name);
 }
 
